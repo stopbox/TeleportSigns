@@ -16,6 +16,7 @@ class TeleportSignLayout implements SignLayout {
     private final String[] layout;
     private final boolean teleport;
     private final String offlineInteger;
+    private int timeout = 0;
 
     @Override
     public String[] parseLayout(ServerInfo sinfo) {
@@ -27,6 +28,7 @@ class TeleportSignLayout implements SignLayout {
             String line = layout[i];
             line = line.replace("%displayname%", sinfo.getDisplayname());
             if (sinfo.isOnline()) {
+                timeout = 0;
                 line = line.replace("%isonline%", online);
                 line = line.replace("%numpl%", String.valueOf(sinfo.getPlayersOnline()));
                 line = line.replace("%maxpl%", String.valueOf(sinfo.getMaxPlayers()));
@@ -43,10 +45,18 @@ class TeleportSignLayout implements SignLayout {
                 }
             }
             else {
-                line = line.replace("%isonline%", offline);
-                line = line.replace("%numpl%", offlineInteger);
-                line = line.replace("%maxpl%", offlineInteger);
-                line = line.replace("%motd%", "");
+			    if (timeout != 20) {
+				    timeout++;
+				    sign.setLine(0, ChatColor.DARK_RED + "█████████");
+				    sign.setLine(1, ChatColor.translateAlternateColorCodes('&', name));
+				    sign.setLine(2, ChatColor.RED + "Rebooting");
+				    sign.setLine(3, ChatColor.DARK_RED + "█████████");
+			    } else if (timeout == 20) {
+				    sign.setLine(0, ChatColor.DARK_RED + "█████████");
+				    sign.setLine(1, ChatColor.translateAlternateColorCodes('&', name));
+				    sign.setLine(2, ChatColor.RED + "Maintenance");
+				    sign.setLine(3, ChatColor.DARK_RED + "█████████");
+			    }
             }
             laa[i] = ChatColor.translateAlternateColorCodes('&', line);
         }
