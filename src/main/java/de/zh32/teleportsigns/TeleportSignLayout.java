@@ -45,18 +45,18 @@ class TeleportSignLayout implements SignLayout {
                 }
             }
             else {
-			    if (timeout != 20) {
-				    timeout++;
-				    sign.setLine(0, ChatColor.DARK_RED + "█████████");
-				    sign.setLine(1, ChatColor.translateAlternateColorCodes('&', name));
-				    sign.setLine(2, ChatColor.RED + "Rebooting");
-				    sign.setLine(3, ChatColor.DARK_RED + "█████████");
-			    } else if (timeout == 20) {
-				    sign.setLine(0, ChatColor.DARK_RED + "█████████");
-				    sign.setLine(1, ChatColor.translateAlternateColorCodes('&', name));
-				    sign.setLine(2, ChatColor.RED + "Maintenance");
-				    sign.setLine(3, ChatColor.DARK_RED + "█████████");
-			    }
+		if (timeout != 20) {
+			timeout++;
+			sign.setLine(0, ChatColor.DARK_RED + "█████████");
+			sign.setLine(1, ChatColor.translateAlternateColorCodes('&', name));
+			sign.setLine(2, ChatColor.RED + "Rebooting");
+			sign.setLine(3, ChatColor.DARK_RED + "█████████");
+		} else if (timeout == 20) {
+			sign.setLine(0, ChatColor.DARK_RED + "█████████");
+			sign.setLine(1, ChatColor.translateAlternateColorCodes('&', name));
+			sign.setLine(2, ChatColor.RED + "Maintenance");
+			sign.setLine(3, ChatColor.DARK_RED + "█████████");
+		}
             }
             laa[i] = ChatColor.translateAlternateColorCodes('&', line);
         }
